@@ -1,0 +1,10 @@
+" Indentation {
+	filetype plugin indent on
+	set smartindent
+	set background=dark
+	set shiftwidth=4
+	set noexpandtab
+	set tabstop=4
+" }
+syntax on
+colorscheme zenburn
