@@ -224,7 +224,7 @@
   (when (optional-require 'sdcv-mode)
     (global-set-key (kbd "C-c d") 'sdcv-search)))
 
-(load-file "mrshpot-helpers.el")
+(load "mrshpot-helpers.el")
 
 
 
