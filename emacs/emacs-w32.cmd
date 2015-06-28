@@ -1,4 +1,6 @@
 @ECHO OFF
+TITLE Emacs
+
 FOR %%C IN (
     %EMACS%
     d:\tools\emacs-24\bin\runemacs.exe
@@ -8,16 +10,30 @@ FOR %%C IN (
     echo Trying %%C
     IF EXIST %%C (
         SET RUNEMACS=%%C
-        GOTO FOUND
+        GOTO EMACS_FOUND
     )
 )
 
-:NOTFOUND
+:EMACS_NOTFOUND
 echo Could not find Emacs. Consider setting the EMACS environment variable.
 pause
 exit /B 1
 
-:FOUND
-set HOME=%~dp0
+:EMACS_FOUND
 set EMACSLOADPATH=%~dp0;
+
+FOR %%C IN (
+	%MINGW_PATH%
+	d:\mingw
+	) DO (
+	IF EXIST %%C (
+		SET MSYSTEM=MINGW32
+		echo Starting Emacs under MinGW.
+		start %%C\msys\1.0\bin\sh.exe --login -c "$RUNEMACS"
+		exit /B
+	) ELSE (
+		echo debug %%C is not a MinGW installation.
+	)
+)
+echo Starting Emacs without MinGW.
 start %RUNEMACS% --debug-init || pause
