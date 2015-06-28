@@ -151,7 +151,7 @@
 
 (put 'dired-find-alternate-file 'disabled t)
 ; hide group in dired listings
-(setq dired-listing-switches "-alG")
+(setq dired-listing-switches "-alGh")
 
 ;; Python
 (add-to-list 'auto-mode-alist '("\\.pyw$" . python-mode))
