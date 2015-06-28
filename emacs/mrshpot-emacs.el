@@ -10,7 +10,9 @@
 (setq backup-by-copying t)
 
 ;; Indent on C-j
-(electric-indent-mode 0)
+; (electric-indent-mode 0)
+(global-set-key (kbd "C-j") 'newline)
+(global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
 
 ;; override whatever the default is
 (prefer-coding-system 'utf-8)
