@@ -9,6 +9,11 @@
 
 (setq backup-by-copying t)
 
+;; MinGW/MSYS shell
+(if (not (null (getenv "MSYSTEM"))) ; are we under MSYS?
+	(setq explicit-shell-file-name "bash")
+	(setq shell-file-name (concat exec-directory "cmdproxy.exe")))
+
 ;; Indent on C-j
 ; (electric-indent-mode 0)
 (global-set-key (kbd "C-j") 'newline)
