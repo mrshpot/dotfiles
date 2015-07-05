@@ -62,6 +62,8 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
 (defconst *mrshpot-packages* '(zenburn-theme cuda-mode
   markdown-mode lua-mode browse-kill-ring cmake-mode
