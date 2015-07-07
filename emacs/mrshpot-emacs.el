@@ -169,6 +169,9 @@
 ; hide group in dired listings
 (setq dired-listing-switches "-alGh")
 
+; for dired-omit-mode
+(require 'dired-x)
+
 ;; Python
 (add-to-list 'auto-mode-alist '("\\.pyw$" . python-mode))
 
