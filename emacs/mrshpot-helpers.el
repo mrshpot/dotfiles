@@ -87,3 +87,22 @@ Query for NUMBER if a prefix arg present."
 				 (or number
 					 (get-free-buffer-number shell-n-format)))))
     (shell (get-buffer-create new-buffer-name))))
+
+(defun python-run-buffer-file (buffer-or-name)
+  "Run buffer's file as a Python script.
+
+Executes in comint buffer *python-run*."
+  (interactive
+   (list (if current-prefix-arg
+			 (read-buffer "Python buffer: ")
+		   (current-buffer))))
+  (let*
+	  ((script-buffer (get-buffer buffer-or-name))
+	   (script-filename (buffer-file-name script-buffer)))
+	(switch-to-buffer-other-window
+	 (make-comint-in-buffer
+	  (buffer-name script-buffer)
+	  (get-buffer-create "*python-run*")
+	  "python"
+	  nil
+	  script-filename))))
