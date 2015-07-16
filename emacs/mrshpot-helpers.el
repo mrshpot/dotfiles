@@ -88,6 +88,7 @@ Query for NUMBER if a prefix arg present."
 					 (get-free-buffer-number shell-n-format)))))
     (shell (get-buffer-create new-buffer-name))))
 
+
 (defun python-run-buffer-file (buffer-or-name)
   "Run buffer's file as a Python script.
 
@@ -98,11 +99,12 @@ Executes in comint buffer *python-run*."
 		   (current-buffer))))
   (let*
 	  ((script-buffer (get-buffer buffer-or-name))
+	   (process-buffer (get-buffer-create "*python-run*"))
 	   (script-filename (buffer-file-name script-buffer)))
-	(switch-to-buffer-other-window
-	 (make-comint-in-buffer
-	  (buffer-name script-buffer)
-	  (get-buffer-create "*python-run*")
-	  "python"
-	  nil
-	  script-filename))))
+	(make-comint-in-buffer
+	 (buffer-name script-buffer)
+	 process-buffer
+	 (if (eq system-type 'windows-nt) "pythonw" "python")
+	 nil
+	 script-filename)
+	(switch-to-buffer-other-window process-buffer)))
