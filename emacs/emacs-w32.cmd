@@ -21,6 +21,7 @@ exit /B 1
 
 :EMACS_FOUND
 set EMACSLOADPATH=%~dp0;
+set HOME=%USERPROFILE%
 
 FOR %%C IN (
 	%MINGW_PATH%
