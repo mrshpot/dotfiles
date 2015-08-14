@@ -107,4 +107,6 @@ Executes in comint buffer *python-run*."
 	 (if (eq system-type 'windows-nt) "pythonw" "python")
 	 nil
 	 script-filename)
+	(with-current-buffer process-buffer
+	  (compilation-minor-mode))
 	(switch-to-buffer-other-window process-buffer)))
