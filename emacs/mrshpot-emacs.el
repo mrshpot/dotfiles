@@ -176,6 +176,8 @@
 
 ; for dired-omit-mode
 (require 'dired-x)
+; bind dired-omit-mode to C-c C-d
+(define-key dired-mode-map (kbd "C-c C-d") 'dired-omit-mode)
 
 ;; Python
 (add-to-list 'auto-mode-alist '("\\.pyw$" . python-mode))
