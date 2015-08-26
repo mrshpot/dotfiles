@@ -140,6 +140,15 @@
 (setq c-basic-offset 4)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.inl\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cl\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.clh\\'" . c-mode))
+
+;; don't indent namespace
+;; see: http://stackoverflow.com/questions/13825188/suppress-c-namespace-indentation-in-emacs
+;; (defconst my-cc-style
+;;   '("cc-mode"
+;;     (c-offsets-alist . ((innamespace . [0])))))
+;; (c-add-style "ellemtel" my-cc-style)
 
 ;; tabs
 ;; force 4-space tabs
