@@ -67,9 +67,12 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(defconst *mrshpot-packages* '(zenburn-theme cuda-mode
-  markdown-mode lua-mode browse-kill-ring cmake-mode
-  pkgbuild-mode smart-mode-line smooth-scrolling)
+(defconst *mrshpot-packages*
+  (list 'zenburn-theme
+		'browse-kill-ring 'smooth-scrolling 'smart-mode-line
+		'lua-mode 'markdown-mode 'cmake-mode
+		'cuda-mode 'csharp-mode
+		'pkgbuild-mode)
   "Packages that should be installed")
 (let
     ((query-package-install
