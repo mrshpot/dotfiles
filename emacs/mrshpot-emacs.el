@@ -155,9 +155,6 @@
 (setq tab-width 4)
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-(add-hook 'c-mode-common-hook (lambda ()
-				(setq tab-width 4)
-				(setq indent-tabs-mode nil)))
 
 ;; IDO, Interactively Do Things
 ;; for nicer autocompletion in minibuffer
