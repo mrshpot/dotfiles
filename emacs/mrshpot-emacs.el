@@ -9,15 +9,18 @@
 
 (setq backup-by-copying t)
 
-;; MinGW/MSYS shell
-(if (not (null (getenv "MSYSTEM"))) ; are we under MSYS?
-	(setq explicit-shell-file-name "bash")
-	(setq shell-file-name (concat exec-directory "cmdproxy.exe")))
+(when (eq system-type 'windows-nt)
+  ;; MinGW/MSYS shell
+  (if (not (null (getenv "MSYSTEM"))) ; are we under MSYS?
+      (setq explicit-shell-file-name "bash")
+    (setq shell-file-name (concat exec-directory "cmdproxy.exe"))))
 
 ;; Indent on C-j
-; (electric-indent-mode 0)
-(global-set-key (kbd "C-j") 'newline)
-(global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
+(when (fboundp 'electric-indent-just-newline) ; newer Emacs 24
+    (progn
+      ;; (electric-indent-mode 0)
+      (global-set-key (kbd "C-j") 'newline-and-indent)
+      (global-set-key (kbd "C-m") 'electric-indent-just-newline)))
 
 ;; override whatever the default is
 (prefer-coding-system 'utf-8)
@@ -46,10 +49,10 @@
 
 ;; nicer frame titles
 (setq frame-title-format
-	  (concat "%b - "
-			  (or (getenv "USER")
-				  (getenv "USERNAME"))
-			  "@" (system-name)))
+      (concat "%b - "
+              (or (getenv "USER")
+                  (getenv "USERNAME"))
+              "@" (system-name)))
 
 
 
@@ -58,7 +61,7 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
-			 '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
@@ -69,17 +72,17 @@
 
 (defconst *mrshpot-packages*
   (list 'zenburn-theme
-		'browse-kill-ring 'smooth-scrolling 'smart-mode-line
-		'lua-mode 'markdown-mode 'cmake-mode
-		'cuda-mode 'csharp-mode
-		'pkgbuild-mode)
+        'browse-kill-ring 'smooth-scrolling 'smart-mode-line
+        'lua-mode 'markdown-mode 'cmake-mode
+        'cuda-mode 'csharp-mode
+        'pkgbuild-mode)
   "Packages that should be installed")
 (let
     ((query-package-install
       (lambda (name)
-	(when (and (not (package-installed-p name))
-		   (yes-or-no-p (format "Install %s? " name)))
-	  (package-install name)))))
+        (when (and (not (package-installed-p name))
+                   (yes-or-no-p (format "Install %s? " name)))
+          (package-install name)))))
   (mapcar query-package-install *mrshpot-packages*))
 
 
@@ -105,7 +108,7 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;; TODO: Diminish -- remove or rename modelines for minor modes
-; (require 'diminish)
+;; (require 'diminish)
 
 ;; CamelCase navigation
 (global-subword-mode 1)
@@ -115,8 +118,8 @@
 
 ;; elisp, emacs lisp
 (add-hook 'emacs-lisp-mode-hook
-		  (lambda ()
-			(setq mode-name "el")))
+          (lambda ()
+            (setq mode-name "el")))
 
 ;; shell
 ;; Fix shell-mode color special characters
@@ -124,8 +127,8 @@
 ;; shell customizations
 (custom-set-variables
  '(comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
- ; '(comint-scroll-to-bottom-on-output t) ; always add output at the bottom
- ; '(comint-scroll-show-maximum-output t) ; scroll to show max possible output
+ ;; '(comint-scroll-to-bottom-on-output t) ; always add output at the bottom
+ ;; '(comint-scroll-show-maximum-output t) ; scroll to show max possible output
  '(comint-completion-autolist t)        ; show completion list when ambiguous
  '(comint-input-ignoredups t)           ; no duplicates in command history
  '(comint-completion-addsuffix t)       ; insert space/slash after file completion
@@ -170,19 +173,19 @@
 (defadvice dired (after dired-add-prefix activate)
   "Prefix the dired buffer name with `dired-buffer-prefix' if it's non-nil"
   (when dired-buffer-prefix
-	(with-current-buffer ad-return-value
-	  (unless (string-match
-			   (concat "^" dired-buffer-prefix ".*")
-			   (buffer-name))
-		(rename-buffer (concat dired-buffer-prefix (buffer-name)))))))
+    (with-current-buffer ad-return-value
+      (unless (string-match
+               (concat "^" dired-buffer-prefix ".*")
+               (buffer-name))
+        (rename-buffer (concat dired-buffer-prefix (buffer-name)))))))
 
 (put 'dired-find-alternate-file 'disabled t)
-; hide group in dired listings
+;; hide group in dired listings
 (setq dired-listing-switches "-alGh")
 
-; for dired-omit-mode
+;; for dired-omit-mode
 (require 'dired-x)
-; bind dired-omit-mode to C-c C-d
+;; bind dired-omit-mode to C-c C-d
 (define-key dired-mode-map (kbd "C-c C-d") 'dired-omit-mode)
 
 ;; Python
@@ -210,7 +213,7 @@
 
 ;; browse-kill-ring
 (require 'browse-kill-ring)
-; (require 'browse-kill-ring+)
+;; (require 'browse-kill-ring+)
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 (setq browse-kill-ring-quit-action 'save-and-restore)
 
@@ -238,23 +241,23 @@
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 ;; optional stuff that may or may not be present, as I don't use that for work anyway
-(cl-labels
-    ((optional-require (feature)
-		       (or (require feature nil t)
-			   (progn (message "Could not load optional feature %s. Skipping." feature) nil))))
-  ;; EMMS
-  (when (optional-require 'emms-setup)
-    (emms-standard)
-    (emms-default-players)
-    (load "my-emms"))
+;; (cl-labels
+;;     ((optional-require (feature)
+;;                        (or (require feature nil t)
+;;                            (progn (message "Could not load optional feature %s. Skipping." feature) nil))))
+;;   ;; EMMS
+;;   (when (optional-require 'emms-setup)
+;;     (emms-standard)
+;;     (emms-default-players)
+;;     (load "my-emms"))
 
-  ;; W3M pager browser
-  (when (optional-require 'w3m)
-    (setq browse-url-browser-function 'w3m-browse-url))
+;;   ;; W3M pager browser
+;;   (when (optional-require 'w3m)
+;;     (setq browse-url-browser-function 'w3m-browse-url))
 
-  ;; StarDict Console Version
-  (when (optional-require 'sdcv-mode)
-    (global-set-key (kbd "C-c d") 'sdcv-search)))
+;;   ;; StarDict Console Version
+;;   (when (optional-require 'sdcv-mode)
+;;     (global-set-key (kbd "C-c d") 'sdcv-search)))
 
 (load "mrshpot-helpers.el")
 
