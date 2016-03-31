@@ -20,7 +20,7 @@ pause
 exit /B 1
 
 :EMACS_FOUND
-set EMACSLOADPATH=%~dp0;
+set EMACSLOADPATH=%~dp0;%~dp0\site-lisp;
 set HOME=%USERPROFILE%
 
 FOR %%C IN (

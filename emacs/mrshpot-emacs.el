@@ -1,6 +1,10 @@
 ;;; Global customizations
 (require 'cl)
 
+;; cmake-mode in marmalade doesn't load properly, for some reason.
+;; load a previously downloaded version
+(require 'cmake-mode)
+
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'rs 'replace-string)
 
@@ -73,7 +77,7 @@
 (defconst *mrshpot-packages*
   (list 'zenburn-theme
         'browse-kill-ring 'smooth-scrolling 'smart-mode-line
-        'lua-mode 'markdown-mode 'cmake-mode
+        'lua-mode 'markdown-mode ; 'cmake-mode ; cmake-mode is in site-lisp
         'cuda-mode 'csharp-mode
         'pkgbuild-mode)
   "Packages that should be installed")
