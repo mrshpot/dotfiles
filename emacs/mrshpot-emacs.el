@@ -138,6 +138,9 @@
  '(comint-completion-addsuffix t)       ; insert space/slash after file completion
  )
 
+;; compilation-mode autoscroll
+(setq compilation-scroll-output t)
+
 ;; move between windows with M-arrows
 (windmove-default-keybindings 'meta)
 
