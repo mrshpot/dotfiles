@@ -5,6 +5,8 @@ FOR %%C IN (
     %EMACS%
     d:\tools\emacs-24\bin\runemacs.exe
 	d:\emacs-24\bin\runemacs.exe
+    d:\tools\emacs-25\bin\runemacs.exe
+	d:\emacs-25\bin\runemacs.exe
     %~dp0\emacs\bin\runemacs.exe
     ) DO (
     echo Trying %%C
