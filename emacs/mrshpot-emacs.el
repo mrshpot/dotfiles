@@ -161,8 +161,8 @@
 ;; (c-add-style "ellemtel" my-cc-style)
 
 ;; tabs
-;; force 4-space tabs
-(setq tab-width 4)
+;; don't force 4-space tabs
+;; (setq tab-width 4)
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 
