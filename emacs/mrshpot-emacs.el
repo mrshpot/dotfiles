@@ -78,7 +78,7 @@
   (list 'zenburn-theme
         'browse-kill-ring 'smooth-scrolling 'smart-mode-line
         'lua-mode 'markdown-mode ; 'cmake-mode ; cmake-mode is in site-lisp
-        'cuda-mode 'csharp-mode
+        'cuda-mode
         'pkgbuild-mode)
   "Packages that should be installed")
 (let
@@ -237,11 +237,6 @@
 ;; TODO: sml/smart mode line
 (sml/setup)
 (sml/apply-theme 'respectful)
-
-;; fold-dwim
-(global-set-key (kbd "<f7>")      'fold-dwim-toggle)
-(global-set-key (kbd "<M-f7>")    'fold-dwim-hide-all)
-(global-set-key (kbd "<S-M-f7>")  'fold-dwim-show-all)
 
 ;; Always ask before killing Emacs
 ;; Set as the last thing to decrease annoyance on buggy init files
