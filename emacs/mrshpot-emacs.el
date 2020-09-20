@@ -217,7 +217,7 @@
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 ;; Terra
-(require 'terra-mode)
+; (require 'terra-mode)
 
 ;; ElDoc mode -- display documentation about symbol under cursor
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
