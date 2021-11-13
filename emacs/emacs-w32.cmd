@@ -3,6 +3,7 @@ TITLE Emacs
 
 FOR %%C IN (
     %EMACS%
+    c:\tools\emacs\bin\runemacs.exe
 	d:\emacs\bin\runemacs.exe
     d:\tools\emacs-27.1\bin\runemacs.exe
     d:\tools\emacs-27\bin\runemacs.exe
