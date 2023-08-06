@@ -80,8 +80,9 @@
   (list 'zenburn-theme
         'browse-kill-ring 'smooth-scrolling 'smart-mode-line
         'lua-mode 'markdown-mode ; 'cmake-mode ; cmake-mode is in site-lisp
-        'cuda-mode
-        'pkgbuild-mode)
+        ;'cuda-mode
+        ;'pkgbuild-mode
+        )
   "Packages that should be installed")
 (let
     ((query-package-install
